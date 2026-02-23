@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "sa_mine_sites",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "site_id": "Witwatersrand_Gold", "description": "Johannesburg Gold Fields - largest gold basin", "mineral": "Gold", "region": "Gauteng", "area_km2": 400, "production_start": 1886 }, "geometry": { "type": "Point", "coordinates": [ 27.8, -26.2 ] } },
+{ "type": "Feature", "properties": { "site_id": "Rustenburg_Platinum", "description": "Rustenburg Platinum Belt - Bushveld Complex", "mineral": "Platinum", "region": "North West", "area_km2": 250, "production_start": 1924 }, "geometry": { "type": "Point", "coordinates": [ 27.24, -25.67 ] } },
+{ "type": "Feature", "properties": { "site_id": "Sishen_Iron", "description": "Sishen Iron Ore Mine - Northern Cape", "mineral": "Iron", "region": "Northern Cape", "area_km2": 180, "production_start": 1953 }, "geometry": { "type": "Point", "coordinates": [ 22.99, -27.78 ] } },
+{ "type": "Feature", "properties": { "site_id": "Palabora_Copper", "description": "Palabora Copper Mine - Limpopo", "mineral": "Copper", "region": "Limpopo", "area_km2": 120, "production_start": 1964 }, "geometry": { "type": "Point", "coordinates": [ 31.13, -23.98 ] } },
+{ "type": "Feature", "properties": { "site_id": "Grootegeluk_Coal", "description": "Grootegeluk Coal Mine - Limpopo", "mineral": "Coal", "region": "Limpopo", "area_km2": 95, "production_start": 1980 }, "geometry": { "type": "Point", "coordinates": [ 28.07, -23.91 ] } }
+]
+}

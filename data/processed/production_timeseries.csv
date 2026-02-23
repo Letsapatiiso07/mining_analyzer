@@ -1,0 +1,176 @@
+site_id,year,mineral,unit,production,region
+Witwatersrand_Gold,1990,Gold,kg/yr,261151.4,Gauteng
+Witwatersrand_Gold,1991,Gold,kg/yr,269235.3,Gauteng
+Witwatersrand_Gold,1992,Gold,kg/yr,307121.3,Gauteng
+Witwatersrand_Gold,1993,Gold,kg/yr,369305.4,Gauteng
+Witwatersrand_Gold,1994,Gold,kg/yr,340570.1,Gauteng
+Witwatersrand_Gold,1995,Gold,kg/yr,299330.2,Gauteng
+Witwatersrand_Gold,1996,Gold,kg/yr,332843.0,Gauteng
+Witwatersrand_Gold,1997,Gold,kg/yr,358502.5,Gauteng
+Witwatersrand_Gold,1998,Gold,kg/yr,355351.2,Gauteng
+Witwatersrand_Gold,1999,Gold,kg/yr,400872.2,Gauteng
+Witwatersrand_Gold,2000,Gold,kg/yr,386481.1,Gauteng
+Witwatersrand_Gold,2001,Gold,kg/yr,345669.3,Gauteng
+Witwatersrand_Gold,2002,Gold,kg/yr,323560.8,Gauteng
+Witwatersrand_Gold,2003,Gold,kg/yr,224182.3,Gauteng
+Witwatersrand_Gold,2004,Gold,kg/yr,174416.0,Gauteng
+Witwatersrand_Gold,2005,Gold,kg/yr,170940.2,Gauteng
+Witwatersrand_Gold,2006,Gold,kg/yr,160932.5,Gauteng
+Witwatersrand_Gold,2007,Gold,kg/yr,170173.3,Gauteng
+Witwatersrand_Gold,2008,Gold,kg/yr,143171.3,Gauteng
+Witwatersrand_Gold,2009,Gold,kg/yr,105593.0,Gauteng
+Witwatersrand_Gold,2010,Gold,kg/yr,115976.1,Gauteng
+Witwatersrand_Gold,2011,Gold,kg/yr,111094.3,Gauteng
+Witwatersrand_Gold,2012,Gold,kg/yr,117276.7,Gauteng
+Witwatersrand_Gold,2013,Gold,kg/yr,104613.7,Gauteng
+Witwatersrand_Gold,2014,Gold,kg/yr,99841.7,Gauteng
+Witwatersrand_Gold,2015,Gold,kg/yr,96207.5,Gauteng
+Witwatersrand_Gold,2016,Gold,kg/yr,73972.6,Gauteng
+Witwatersrand_Gold,2017,Gold,kg/yr,71571.3,Gauteng
+Witwatersrand_Gold,2018,Gold,kg/yr,65339.1,Gauteng
+Witwatersrand_Gold,2019,Gold,kg/yr,66158.6,Gauteng
+Witwatersrand_Gold,2020,Gold,kg/yr,65549.3,Gauteng
+Witwatersrand_Gold,2021,Gold,kg/yr,81411.2,Gauteng
+Witwatersrand_Gold,2022,Gold,kg/yr,77232.3,Gauteng
+Witwatersrand_Gold,2023,Gold,kg/yr,60247.4,Gauteng
+Witwatersrand_Gold,2024,Gold,kg/yr,61522.2,Gauteng
+Rustenburg_Platinum,1990,Platinum,kg/yr,114676.1,North West
+Rustenburg_Platinum,1991,Platinum,kg/yr,123087.0,North West
+Rustenburg_Platinum,1992,Platinum,kg/yr,109993.5,North West
+Rustenburg_Platinum,1993,Platinum,kg/yr,99783.2,North West
+Rustenburg_Platinum,1994,Platinum,kg/yr,97289.3,North West
+Rustenburg_Platinum,1995,Platinum,kg/yr,95389.0,North West
+Rustenburg_Platinum,1996,Platinum,kg/yr,90130.9,North West
+Rustenburg_Platinum,1997,Platinum,kg/yr,88471.7,North West
+Rustenburg_Platinum,1998,Platinum,kg/yr,90900.0,North West
+Rustenburg_Platinum,1999,Platinum,kg/yr,85166.7,North West
+Rustenburg_Platinum,2000,Platinum,kg/yr,81923.9,North West
+Rustenburg_Platinum,2001,Platinum,kg/yr,75028.5,North West
+Rustenburg_Platinum,2002,Platinum,kg/yr,75714.8,North West
+Rustenburg_Platinum,2003,Platinum,kg/yr,72714.9,North West
+Rustenburg_Platinum,2004,Platinum,kg/yr,60595.3,North West
+Rustenburg_Platinum,2005,Platinum,kg/yr,65667.9,North West
+Rustenburg_Platinum,2006,Platinum,kg/yr,67988.4,North West
+Rustenburg_Platinum,2007,Platinum,kg/yr,65662.4,North West
+Rustenburg_Platinum,2008,Platinum,kg/yr,66472.7,North West
+Rustenburg_Platinum,2009,Platinum,kg/yr,66924.4,North West
+Rustenburg_Platinum,2010,Platinum,kg/yr,67812.4,North West
+Rustenburg_Platinum,2011,Platinum,kg/yr,62148.1,North West
+Rustenburg_Platinum,2012,Platinum,kg/yr,63808.5,North West
+Rustenburg_Platinum,2013,Platinum,kg/yr,70177.1,North West
+Rustenburg_Platinum,2014,Platinum,kg/yr,78213.1,North West
+Rustenburg_Platinum,2015,Platinum,kg/yr,71499.5,North West
+Rustenburg_Platinum,2016,Platinum,kg/yr,64156.3,North West
+Rustenburg_Platinum,2017,Platinum,kg/yr,53242.2,North West
+Rustenburg_Platinum,2018,Platinum,kg/yr,47084.3,North West
+Rustenburg_Platinum,2019,Platinum,kg/yr,53095.7,North West
+Rustenburg_Platinum,2020,Platinum,kg/yr,63293.1,North West
+Rustenburg_Platinum,2021,Platinum,kg/yr,64573.5,North West
+Rustenburg_Platinum,2022,Platinum,kg/yr,67647.7,North West
+Rustenburg_Platinum,2023,Platinum,kg/yr,64032.1,North West
+Rustenburg_Platinum,2024,Platinum,kg/yr,55797.1,North West
+Sishen_Iron,1990,Iron,kt/yr,36964.9,Northern Cape
+Sishen_Iron,1991,Iron,kt/yr,45701.5,Northern Cape
+Sishen_Iron,1992,Iron,kt/yr,50016.3,Northern Cape
+Sishen_Iron,1993,Iron,kt/yr,60578.5,Northern Cape
+Sishen_Iron,1994,Iron,kt/yr,43817.3,Northern Cape
+Sishen_Iron,1995,Iron,kt/yr,44877.5,Northern Cape
+Sishen_Iron,1996,Iron,kt/yr,43358.8,Northern Cape
+Sishen_Iron,1997,Iron,kt/yr,42929.5,Northern Cape
+Sishen_Iron,1998,Iron,kt/yr,46867.1,Northern Cape
+Sishen_Iron,1999,Iron,kt/yr,42144.7,Northern Cape
+Sishen_Iron,2000,Iron,kt/yr,43524.6,Northern Cape
+Sishen_Iron,2001,Iron,kt/yr,44438.7,Northern Cape
+Sishen_Iron,2002,Iron,kt/yr,48429.0,Northern Cape
+Sishen_Iron,2003,Iron,kt/yr,43858.6,Northern Cape
+Sishen_Iron,2004,Iron,kt/yr,41189.8,Northern Cape
+Sishen_Iron,2005,Iron,kt/yr,42523.2,Northern Cape
+Sishen_Iron,2006,Iron,kt/yr,50582.8,Northern Cape
+Sishen_Iron,2007,Iron,kt/yr,55013.1,Northern Cape
+Sishen_Iron,2008,Iron,kt/yr,51289.5,Northern Cape
+Sishen_Iron,2009,Iron,kt/yr,50947.5,Northern Cape
+Sishen_Iron,2010,Iron,kt/yr,49274.5,Northern Cape
+Sishen_Iron,2011,Iron,kt/yr,55032.9,Northern Cape
+Sishen_Iron,2012,Iron,kt/yr,55712.1,Northern Cape
+Sishen_Iron,2013,Iron,kt/yr,59346.1,Northern Cape
+Sishen_Iron,2014,Iron,kt/yr,60265.9,Northern Cape
+Sishen_Iron,2015,Iron,kt/yr,50559.4,Northern Cape
+Sishen_Iron,2016,Iron,kt/yr,49124.4,Northern Cape
+Sishen_Iron,2017,Iron,kt/yr,48316.7,Northern Cape
+Sishen_Iron,2018,Iron,kt/yr,49307.8,Northern Cape
+Sishen_Iron,2019,Iron,kt/yr,52221.2,Northern Cape
+Sishen_Iron,2020,Iron,kt/yr,49947.4,Northern Cape
+Sishen_Iron,2021,Iron,kt/yr,50579.0,Northern Cape
+Sishen_Iron,2022,Iron,kt/yr,48101.6,Northern Cape
+Sishen_Iron,2023,Iron,kt/yr,41452.9,Northern Cape
+Sishen_Iron,2024,Iron,kt/yr,39020.6,Northern Cape
+Palabora_Copper,1990,Copper,t/yr,56894.5,Limpopo
+Palabora_Copper,1991,Copper,t/yr,71688.6,Limpopo
+Palabora_Copper,1992,Copper,t/yr,77939.7,Limpopo
+Palabora_Copper,1993,Copper,t/yr,82073.7,Limpopo
+Palabora_Copper,1994,Copper,t/yr,77732.0,Limpopo
+Palabora_Copper,1995,Copper,t/yr,54485.6,Limpopo
+Palabora_Copper,1996,Copper,t/yr,50373.9,Limpopo
+Palabora_Copper,1997,Copper,t/yr,50203.9,Limpopo
+Palabora_Copper,1998,Copper,t/yr,66445.1,Limpopo
+Palabora_Copper,1999,Copper,t/yr,69557.0,Limpopo
+Palabora_Copper,2000,Copper,t/yr,73583.0,Limpopo
+Palabora_Copper,2001,Copper,t/yr,70012.1,Limpopo
+Palabora_Copper,2002,Copper,t/yr,54851.1,Limpopo
+Palabora_Copper,2003,Copper,t/yr,57767.2,Limpopo
+Palabora_Copper,2004,Copper,t/yr,61967.6,Limpopo
+Palabora_Copper,2005,Copper,t/yr,70615.8,Limpopo
+Palabora_Copper,2006,Copper,t/yr,68353.3,Limpopo
+Palabora_Copper,2007,Copper,t/yr,80589.8,Limpopo
+Palabora_Copper,2008,Copper,t/yr,64559.4,Limpopo
+Palabora_Copper,2009,Copper,t/yr,63046.1,Limpopo
+Palabora_Copper,2010,Copper,t/yr,73663.3,Limpopo
+Palabora_Copper,2011,Copper,t/yr,64900.4,Limpopo
+Palabora_Copper,2012,Copper,t/yr,64267.8,Limpopo
+Palabora_Copper,2013,Copper,t/yr,69342.2,Limpopo
+Palabora_Copper,2014,Copper,t/yr,67215.3,Limpopo
+Palabora_Copper,2015,Copper,t/yr,52745.0,Limpopo
+Palabora_Copper,2016,Copper,t/yr,48501.5,Limpopo
+Palabora_Copper,2017,Copper,t/yr,39315.3,Limpopo
+Palabora_Copper,2018,Copper,t/yr,40970.3,Limpopo
+Palabora_Copper,2019,Copper,t/yr,38979.6,Limpopo
+Palabora_Copper,2020,Copper,t/yr,48275.7,Limpopo
+Palabora_Copper,2021,Copper,t/yr,45309.3,Limpopo
+Palabora_Copper,2022,Copper,t/yr,41678.3,Limpopo
+Palabora_Copper,2023,Copper,t/yr,41740.5,Limpopo
+Palabora_Copper,2024,Copper,t/yr,33060.9,Limpopo
+Grootegeluk_Coal,1990,Coal,kt/yr,18417.5,Limpopo
+Grootegeluk_Coal,1991,Coal,kt/yr,21587.5,Limpopo
+Grootegeluk_Coal,1992,Coal,kt/yr,20603.0,Limpopo
+Grootegeluk_Coal,1993,Coal,kt/yr,21725.5,Limpopo
+Grootegeluk_Coal,1994,Coal,kt/yr,21531.7,Limpopo
+Grootegeluk_Coal,1995,Coal,kt/yr,21306.8,Limpopo
+Grootegeluk_Coal,1996,Coal,kt/yr,17972.2,Limpopo
+Grootegeluk_Coal,1997,Coal,kt/yr,16163.5,Limpopo
+Grootegeluk_Coal,1998,Coal,kt/yr,17930.2,Limpopo
+Grootegeluk_Coal,1999,Coal,kt/yr,19844.4,Limpopo
+Grootegeluk_Coal,2000,Coal,kt/yr,21030.1,Limpopo
+Grootegeluk_Coal,2001,Coal,kt/yr,20988.1,Limpopo
+Grootegeluk_Coal,2002,Coal,kt/yr,18314.3,Limpopo
+Grootegeluk_Coal,2003,Coal,kt/yr,17600.7,Limpopo
+Grootegeluk_Coal,2004,Coal,kt/yr,18101.3,Limpopo
+Grootegeluk_Coal,2005,Coal,kt/yr,18289.5,Limpopo
+Grootegeluk_Coal,2006,Coal,kt/yr,22537.4,Limpopo
+Grootegeluk_Coal,2007,Coal,kt/yr,24286.7,Limpopo
+Grootegeluk_Coal,2008,Coal,kt/yr,21250.5,Limpopo
+Grootegeluk_Coal,2009,Coal,kt/yr,20815.5,Limpopo
+Grootegeluk_Coal,2010,Coal,kt/yr,17994.6,Limpopo
+Grootegeluk_Coal,2011,Coal,kt/yr,19217.6,Limpopo
+Grootegeluk_Coal,2012,Coal,kt/yr,22296.9,Limpopo
+Grootegeluk_Coal,2013,Coal,kt/yr,22683.5,Limpopo
+Grootegeluk_Coal,2014,Coal,kt/yr,25332.5,Limpopo
+Grootegeluk_Coal,2015,Coal,kt/yr,25416.4,Limpopo
+Grootegeluk_Coal,2016,Coal,kt/yr,25232.7,Limpopo
+Grootegeluk_Coal,2017,Coal,kt/yr,27609.5,Limpopo
+Grootegeluk_Coal,2018,Coal,kt/yr,27205.6,Limpopo
+Grootegeluk_Coal,2019,Coal,kt/yr,27402.7,Limpopo
+Grootegeluk_Coal,2020,Coal,kt/yr,27727.0,Limpopo
+Grootegeluk_Coal,2021,Coal,kt/yr,27018.5,Limpopo
+Grootegeluk_Coal,2022,Coal,kt/yr,26049.1,Limpopo
+Grootegeluk_Coal,2023,Coal,kt/yr,24858.6,Limpopo
+Grootegeluk_Coal,2024,Coal,kt/yr,23978.3,Limpopo
