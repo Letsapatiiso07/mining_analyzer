@@ -1,207 +1,116 @@
-import sys
+"""Step 2: compute NDVI, bare soil index and bare ground per site and year.
+
+Bare ground = highest wet-season NDVI below 0.20 and dry-season MNDWI below
+0.30, so not open water (see indices.py). Reads the composites from step 1 and
+writes two small CSVs:
+  data/processed/site_metrics.csv  one row per site and year
+  data/processed/site_change.csv   first year against last year, per site
+"""
 import logging
-import pickle
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-import geopandas as gpd
-import rasterio
-from pathlib import Path
-from sklearn.preprocessing import MinMaxScaler
 
-# ── Paths ─────────────────────────────────────────────────────────────────────
-ROOT    = Path(__file__).resolve().parent.parent
-PROC    = ROOT / "data" / "processed"
-IMAGERY = ROOT / "data" / "imagery"
-MODELS  = ROOT / "models"
-MODELS.mkdir(exist_ok=True)
-(ROOT / "logs").mkdir(exist_ok=True)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import (PROC, ROOT, composite_path, composite_years, load_sites, read_composite,  # noqa: E402
+                    read_wet_ndvi, wet_ndvi_path)
+from indices import WATER_MNDWI_MIN, bare_mask, bsi, mndwi, ndvi  # noqa: E402
 
-# ── Logging (UTF-8) ───────────────────────────────────────────────────────────
-_stream = logging.StreamHandler(
-    open(sys.stdout.fileno(), mode="w", encoding="utf-8", closefd=False)
-)
-_stream.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
-
-_file = logging.FileHandler(ROOT / "logs" / "pipeline.log", encoding="utf-8")
-_file.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
-
-logging.basicConfig(level=logging.INFO, handlers=[_stream, _file])
 log = logging.getLogger(__name__)
 
-CLASS_NAMES = {0: "background", 1: "mine_pit", 2: "disturbed", 3: "vegetation"}
+
+def index_layers(bands: dict, peak_ndvi: np.ndarray) -> dict:
+    """Dry-season NDVI, BSI and MNDWI, wet-season peak NDVI and the bare ground mask."""
+    nd = ndvi(bands["B08"], bands["B04"])
+    bs = bsi(bands["B11"], bands["B04"], bands["B08"], bands["B02"])
+    water = mndwi(bands["B03"], bands["B11"])
+    valid = ~np.isnan(nd) & ~np.isnan(water) & ~np.isnan(peak_ndvi)
+    return {"ndvi": nd, "bsi": bs, "mndwi": water, "peak_ndvi": peak_ndvi,
+            "bare": bare_mask(peak_ndvi, water), "valid": valid}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 1. Pit extent metrics from label masks
-# ─────────────────────────────────────────────────────────────────────────────
-
-def extract_pit_metrics() -> pd.DataFrame:
-    out = PROC / "pit_metrics.csv"
-    if out.exists():
-        log.info("[OK] pit_metrics.csv already exists.")
-        return pd.read_csv(out)
-
-    rows = []
-    for mask_path in sorted(IMAGERY.glob("*_labels.tif")):
-        site = mask_path.stem.replace("_labels", "")
-        with rasterio.open(mask_path) as src:
-            labels       = src.read(1)
-            pixel_area_m2 = abs(src.res[0] * src.res[1]) * (111_320 ** 2)
-
-        total_px = labels.size
-        for cls_id, cls_name in CLASS_NAMES.items():
-            count = (labels == cls_id).sum()
-            rows.append({
-                "site_id":  site,
-                "class":    cls_name,
-                "pixels":   int(count),
-                "fraction": round(count / total_px, 4),
-                "area_ha":  round(count * pixel_area_m2 / 10_000, 2),
-            })
-
-    df = pd.DataFrame(rows)
-    df.to_csv(out, index=False)
-    log.info(f"[OK] Pit metrics -> {out}")
-    return df
+def load_layers(site_id: str, year: int) -> tuple[dict, dict, dict]:
+    """Read both composites for a site and year; return (bands, layers, tags)."""
+    bands, tags = read_composite(composite_path(site_id, year))
+    peak, wet_tags = read_wet_ndvi(wet_ndvi_path(site_id, year))
+    tags["wet_scenes"] = wet_tags.get("scenes", "")
+    return bands, index_layers(bands, peak), tags
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 2. Simulated multi-year NDVI change
-# ─────────────────────────────────────────────────────────────────────────────
-
-def simulate_ndvi_change_series() -> pd.DataFrame:
-    """Simulate annual NDVI statistics per site over 2015-2024."""
-    out = PROC / "ndvi_timeseries.csv"
-    if out.exists():
-        log.info("[OK] ndvi_timeseries.csv already exists.")
-        return pd.read_csv(out)
-
-    np.random.seed(7)
-    rows = []
-
-    for ndvi_path in sorted(IMAGERY.glob("*_ndvi.tif")):
-        site = ndvi_path.stem.replace("_ndvi", "")
-        with rasterio.open(ndvi_path) as src:
-            base_ndvi = src.read(1)
-
-        for yr in range(2015, 2025):
-            dt         = yr - 2015
-            degradation = -0.008 * dt
-            annual     = base_ndvi + degradation + np.random.normal(0, 0.005, base_ndvi.shape)
-
-            rows.append({
-                "site_id":   site,
-                "year":      yr,
-                "ndvi_mean": float(np.mean(annual)),
-                "ndvi_std":  float(np.std(annual)),
-                "ndvi_p10":  float(np.percentile(annual, 10)),
-                "ndvi_p90":  float(np.percentile(annual, 90)),
-                "veg_frac":  float((annual > 0.25).mean()),
-                "bare_frac": float((annual < 0.05).mean()),
-            })
-
-    df = pd.DataFrame(rows)
-    df.to_csv(out, index=False)
-    log.info(f"[OK] NDVI time-series -> {out}")
-    return df
+def year_metrics(layers: dict, pixel_km2: float) -> dict:
+    valid = layers["valid"]
+    n_valid = int(valid.sum())
+    bare = layers["bare"] & valid
+    return {
+        "valid_frac": round(n_valid / valid.size, 4),
+        "ndvi_mean": round(float(np.nanmean(layers["ndvi"])), 4),
+        "peak_ndvi_mean": round(float(np.nanmean(layers["peak_ndvi"])), 4),
+        "bsi_mean": round(float(np.nanmean(layers["bsi"])), 4),
+        "bare_frac": round(float(bare.sum() / n_valid), 4),
+        "bare_km2": round(float(bare.sum() * pixel_km2), 3),
+        "water_km2": round(float((layers["mndwi"] >= WATER_MNDWI_MIN).sum() * pixel_km2), 3),
+        # First rule tried, dry season only; kept to show why the wet-season check was added.
+        "bare_km2_dry_rule": round(float(((layers["ndvi"] < 0.15) & (layers["bsi"] > 0.10) & valid).sum()
+                                         * pixel_km2), 3),
+    }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 3. Production feature engineering
-# ─────────────────────────────────────────────────────────────────────────────
+def bare_change(first: dict, last: dict, pixel_km2: float) -> dict:
+    """Area that turned bare, and area that stopped being bare, between two years."""
+    both = first["valid"] & last["valid"]
+    gained = last["bare"] & ~first["bare"] & both
+    lost = first["bare"] & ~last["bare"] & both
+    return {
+        "bare_gained_km2": round(float(gained.sum() * pixel_km2), 3),
+        "bare_lost_km2": round(float(lost.sum() * pixel_km2), 3),
+    }
 
-def engineer_production_features() -> dict:
-    """Create lagged / rolling features for each site's production time-series."""
-    prod_path = PROC / "production_timeseries.csv"
-    if not prod_path.exists():
-        log.error("production_timeseries.csv not found - run download_and_process.py first")
-        return {}
-
-    df            = pd.read_csv(prod_path)
-    site_datasets = {}
-
-    for site, grp in df.groupby("site_id"):
-        grp = grp.sort_values("year").copy()
-
-        for lag in [1, 2, 3]:
-            grp[f"prod_lag{lag}"] = grp["production"].shift(lag)
-
-        grp["prod_roll3_mean"] = grp["production"].rolling(3, min_periods=1).mean()
-        grp["prod_roll3_std"]  = grp["production"].rolling(3, min_periods=1).std().fillna(0)
-        grp["prod_roll5_mean"] = grp["production"].rolling(5, min_periods=1).mean()
-        grp["prod_yoy_pct"]    = grp["production"].pct_change().fillna(0)
-        grp["year_idx"]        = grp["year"] - grp["year"].min()
-
-        grp = grp.dropna().reset_index(drop=True)
-        site_datasets[site] = grp
-
-    combined = pd.concat(site_datasets.values(), ignore_index=True)
-    combined.to_csv(PROC / "production_features.csv", index=False)
-    log.info(f"[OK] Production features -> {PROC / 'production_features.csv'}")
-
-    scaler = MinMaxScaler()
-    scaler.fit(combined[["production"]])
-    with open(MODELS / "production_scaler.pkl", "wb") as f:
-        pickle.dump(scaler, f)
-    log.info("[OK] Scaler saved -> models/production_scaler.pkl")
-
-    return site_datasets
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 4. Segmentation dataset index
-# ─────────────────────────────────────────────────────────────────────────────
-
-def build_segmentation_dataset_index() -> pd.DataFrame:
-    """Index all image / label pairs for the U-Net training loop."""
-    out = PROC / "segmentation_index.csv"
-    if out.exists():
-        log.info("[OK] segmentation_index.csv already exists.")
-        return pd.read_csv(out)
-
-    rows = []
-    for img_path in sorted(IMAGERY.glob("*_sentinel2.tif")):
-        site = img_path.stem.replace("_sentinel2", "")
-        lbl  = IMAGERY / f"{site}_labels.tif"
-        ndvi = IMAGERY / f"{site}_ndvi.tif"
-        rows.append({
-            "site_id":    site,
-            "image_path": str(img_path),
-            "label_path": str(lbl)  if lbl.exists()  else "",
-            "ndvi_path":  str(ndvi) if ndvi.exists() else "",
-        })
-
-    df = pd.DataFrame(rows)
-    df.to_csv(out, index=False)
-    log.info(f"[OK] Segmentation index ({len(df)} samples) -> {out}")
-    return df
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
 
 def main():
-    log.info("=" * 60)
-    log.info("Step 2: Feature engineering")
-    log.info("=" * 60)
+    PROC.mkdir(parents=True, exist_ok=True)
+    rows, change_rows = [], []
+    for site in load_sites():
+        sid = site["site_id"]
+        years = composite_years(sid)
+        if not years:
+            log.warning(f"No composites for {sid}; run step 1 first")
+            continue
+        first_layers = last_layers = None
+        for year in years:
+            _, layers, tags = load_layers(sid, year)
+            pixel_km2 = tags["pixel_area_m2"] / 1e6
+            rows.append({
+                "site_id": sid, "year": year,
+                "dry_scenes": len(tags["scenes"].split(",")),
+                "wet_scenes": len(tags["wet_scenes"].split(",")),
+                "gap_filled_frac": float(tags.get("filled_frac", "nan")),
+                **year_metrics(layers, pixel_km2),
+            })
+            if year == years[0]:
+                first_layers = layers
+            if year == years[-1]:
+                last_layers = layers
 
-    metrics = extract_pit_metrics()
-    log.info(f"  Pit metrics shape: {metrics.shape}")
+        site_rows = pd.DataFrame([r for r in rows if r["site_id"] == sid])
+        f, l = site_rows.iloc[0], site_rows.iloc[-1]
+        change_rows.append({
+            "site_id": sid, "first_year": int(f["year"]), "last_year": int(l["year"]),
+            "chip_km2": round(float(site["chip_km"]) ** 2, 1),
+            "bare_km2_first": f["bare_km2"], "bare_km2_last": l["bare_km2"],
+            "bare_km2_change": round(l["bare_km2"] - f["bare_km2"], 3),
+            **bare_change(first_layers, last_layers, pixel_km2),
+            "ndvi_mean_first": f["ndvi_mean"], "ndvi_mean_last": l["ndvi_mean"],
+            "peak_ndvi_mean_first": f["peak_ndvi_mean"], "peak_ndvi_mean_last": l["peak_ndvi_mean"],
+        })
+        log.info(f"[OK] {sid}: {len(years)} years, bare ground {f['bare_km2']:.2f} -> {l['bare_km2']:.2f} km2")
 
-    ndvi_ts = simulate_ndvi_change_series()
-    log.info(f"  NDVI time-series shape: {ndvi_ts.shape}")
-
-    prod_feats = engineer_production_features()
-    log.info(f"  Production feature datasets: {list(prod_feats.keys())}")
-
-    seg_idx = build_segmentation_dataset_index()
-    log.info(f"  Segmentation samples: {len(seg_idx)}")
-
-    log.info("=" * 60)
-    log.info("[DONE] Feature engineering complete.")
-    log.info("=" * 60)
+    pd.DataFrame(rows).to_csv(PROC / "site_metrics.csv", index=False)
+    pd.DataFrame(change_rows).to_csv(PROC / "site_change.csv", index=False)
+    log.info(f"[OK] {len(rows)} site-years -> {(PROC / 'site_metrics.csv').relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
     main()

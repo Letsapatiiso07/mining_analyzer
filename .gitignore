@@ -1,132 +1,29 @@
-# ── Python ────────────────────────────────────────────────────────────────────
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-*.pyd
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+.pytest_cache/
 
-# ── Virtual environments ───────────────────────────────────────────────────────
+# Virtual environments
 venv/
-env/
-ENV/
 .venv/
-.env/
-virtualenv/
+env/
+venvs/
 
-# ── Environment variables ──────────────────────────────────────────────────────
-.env
-.env.local
-.env.*.local
-*.env
-
-# ── Data files (large / generated — not committed to git) ─────────────────────
-data/raw/
+# Downloaded and generated imagery (rebuilt by run_pipeline.py)
 data/imagery/
-data/processed/predictions/
-
-# Keep the processed CSV/GeoJSON files (small, useful for others to run fast)
-# but ignore large rasters and model outputs
 *.tif
 *.tiff
-*.geotiff
 
-# ── Trained models (can be large — regenerate with scripts) ───────────────────
-models/*.pt
-models/*.pth
-models/*.pkl
-models/*.h5
-models/*.onnx
-
-# Keep the scaler (tiny, needed for inference)
-!models/production_scaler.pkl
-
-# ── MLflow experiment tracking ────────────────────────────────────────────────
+# Models, experiment runs and logs
+models/
 mlruns/
-mlartifacts/
-
-# ── Logs ──────────────────────────────────────────────────────────────────────
+*.pt
+*.pkl
 logs/
 *.log
 
-# ── Jupyter Notebooks ─────────────────────────────────────────────────────────
-.ipynb_checkpoints/
-*.ipynb
-
-# ── Testing & coverage ────────────────────────────────────────────────────────
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-coverage.xml
-*.cover
-*.py,cover
-
-# ── IDEs & editors ────────────────────────────────────────────────────────────
+# Editor and OS files
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
 .DS_Store
 Thumbs.db
-
-# ── OS files ──────────────────────────────────────────────────────────────────
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-
-# ── Distribution / packaging ──────────────────────────────────────────────────
-*.manifest
-*.spec
-
-# ── Compiled files ────────────────────────────────────────────────────────────
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.seed
-
-# ── Temporary files ───────────────────────────────────────────────────────────
-tmp/
-temp/
-*.tmp
-*.bak
-*.swp
-
-# ── Streamlit cache ───────────────────────────────────────────────────────────
-.streamlit/
-
-# ── Rasterio / GDAL ───────────────────────────────────────────────────────────
-*.aux.xml
-*.prj
-*.cpg
-*.dbf
-*.shx
-
-# ── Zip archives (generated locally) ─────────────────────────────────────────
-*.zip

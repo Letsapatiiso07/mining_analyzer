@@ -1,0 +1,6 @@
+site_id,first_year,last_year,chip_km2,bare_km2_first,bare_km2_last,bare_km2_change,bare_gained_km2,bare_lost_km2,ndvi_mean_first,ndvi_mean_last,peak_ndvi_mean_first,peak_ndvi_mean_last
+Sishen_Iron,2017,2026,100.0,40.055,48.91,8.855,15.421,6.566,0.1737,0.1558,0.3054,0.2441
+Grootegeluk_Coal,2017,2026,64.0,23.261,24.062,0.801,5.564,4.768,0.1389,0.1745,0.3351,0.3849
+Palabora_Copper,2017,2026,36.0,16.312,9.369,-6.943,0.972,7.999,0.1415,0.1776,0.2587,0.4146
+Tharisa_Platinum,2017,2026,36.0,7.867,9.85,1.983,4.064,2.092,0.1497,0.219,0.4732,0.4583
+Ergo_Gold_Tailings,2017,2026,64.0,7.047,8.361,1.314,3.37,2.087,0.1635,0.2087,0.539,0.5256
